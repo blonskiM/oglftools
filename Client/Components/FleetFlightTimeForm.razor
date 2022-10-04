@@ -1,6 +1,8 @@
 ﻿@page "/FleetFlightTimeCalculator"
 @using OGTools.Shared
 @using OGTools.Client
+@using OGTools.Shared.Enums
+@using Microsoft.AspNetCore.Components
 
 <h3>FleetFlightTimeForm</h3>
 
@@ -29,7 +31,7 @@
                             <div class="form-group">
                                 <label for="AllianceClassInput">Alliance class:</label>
                                 <InputSelect class="form-control" id="AllianceClassInput" @bind-Value="@_fleetFlightTime.AllianceClass">
-                                    @foreach (var allianceClass in Enum.GetValues(typeof(AllianceClass)))
+                                    @foreach (var allianceClass in Enum.GetValues(typeof(PlayerAllianceClass)))
                                     {
                                         <option value="@allianceClass">@allianceClass</option>
                                     }
@@ -41,19 +43,19 @@
                         <td>
                             <div class="form-group">
                                 <label for="CombustionDriveLevelInput">Combustion drive level:</label>
-                                <InputNumber class="form-control" id="CombustionDriveLevelInput" @bind-Value="@_fleetFlightTime.CombustionDriveLevel"/>
+                                <InputNumber class="form-control" id="CombustionDriveLevelInput" @bind-Value="@_fleetFlightTime.PlayerTechnologies.CombustionDriveLevel"/>
                             </div>
                         </td>
                         <td>
                             <div class="form-group">
                                 <label for="ImpulseDriveLevelInput">Impulse drive level:</label>
-                                <InputNumber class="form-control" id="ImpulseDriveLevelInput" @bind-Value="_fleetFlightTime.ImpulseDriveLevel"/>
+                                <InputNumber class="form-control" id="ImpulseDriveLevelInput" @bind-Value="_fleetFlightTime.PlayerTechnologies.ImpulseDriveLevel"/>
                             </div>
                         </td>
                         <td>
                             <div class="form-group">
                                 <label for="HyperspaceDriveLevelInput">Hyperspace drive level:</label>
-                                <InputNumber class="form-control" id="HyperspaceDriveLevelInput" @bind-Value="_fleetFlightTime.HyperspaceDriveLevel"/>
+                                <InputNumber class="form-control" id="HyperspaceDriveLevelInput" @bind-Value="_fleetFlightTime.PlayerTechnologies.HyperspaceDriveLevel"/>
                             </div>
                         </td>
                     </tr>
@@ -74,25 +76,6 @@
 @code {
     private ShipInfo _ship = new ShipInfo();
     private FleetFlightTime _fleetFlightTime = new FleetFlightTime();
-
-    private List<ShipInfo> _ships = new List<ShipInfo>()
-    {
-        new ShipInfo { ShipName = "Small cargo", ShipBaseSpeed = 10000},
-        new ShipInfo { ShipName = "Large cargo", ShipBaseSpeed = 7500},
-        new ShipInfo { ShipName = "Light fighter", ShipBaseSpeed = 12500},
-        new ShipInfo { ShipName = "Heavy Fighter", ShipBaseSpeed = 10000},
-        new ShipInfo { ShipName = "Cruiser", ShipBaseSpeed = 15000},
-        new ShipInfo { ShipName = "Battleship", ShipBaseSpeed = 10000},
-        new ShipInfo { ShipName = "Battlecruiser", ShipBaseSpeed = 10000},
-        new ShipInfo { ShipName = "Bomber", ShipBaseSpeed=5000},
-        new ShipInfo { ShipName = "Destroyer", ShipBaseSpeed = 5000},
-        new ShipInfo { ShipName = "Death star", ShipBaseSpeed = 100},
-        new ShipInfo { ShipName = "Reaper", ShipBaseSpeed = 7000},
-        new ShipInfo { ShipName = "Pathfinder", ShipBaseSpeed = 12000},
-        new ShipInfo { ShipName = "Colony ship", ShipBaseSpeed = 2500},
-        new ShipInfo { ShipName = "Recycler", ShipBaseSpeed=6000},
-        new ShipInfo { ShipName = "Espionage probe", ShipBaseSpeed = 100000000}
-    };
 
     public async Task HandleValidationSubmit()
     {
