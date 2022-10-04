@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Linq;
+using OGTools.Server.Services;
 
 namespace TheRealOGLFTools.Server
 {
@@ -25,6 +26,9 @@ namespace TheRealOGLFTools.Server
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddSwaggerGen();
+
+            services.AddSingleton<IShipFlightTimeService, ShipFlightTimeService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,6 +38,8 @@ namespace TheRealOGLFTools.Server
             {
                 app.UseDeveloperExceptionPage();
                 app.UseWebAssemblyDebugging();
+                app.UseSwagger();
+                app.UseSwaggerUI();
             }
             else
             {
